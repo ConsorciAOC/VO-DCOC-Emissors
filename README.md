@@ -122,7 +122,7 @@ Aquesta operació _síncrona_ permetrà que el col·legi informi si un determina
 | //respostaConsulta/projecte/dadesEspecifiques | Bloc de tipus 'anyType' que serveix per a indicar qualsevol informació 'extra' que vulgui afegir el col·legi.|
 
 
-#### 3.2 Dades tècniques <a name="3.2"></a>
+## 3.2 Dades tècniques <a name="3.2"></a>
 
 Operació _síncrona_ que posarà a disposició dels requeridors -en format XML- tota aquella informació de dades tècniques que considerin oportunes.
 
