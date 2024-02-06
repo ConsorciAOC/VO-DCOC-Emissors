@@ -11,8 +11,9 @@ Podreu trobar els WSDL's del serveis a implementar en aquest repositori sota el 
 - [3. Missatgeria dels serveis a implementar pel col·legi](#3)
    * [3.1. Consulta](#3.1)
    * [3.2. Dades tècniques](#3.2)
-   * [3.3. Descàrrega)](#3.3)
-   		* [3.3.1 Crida al servei d'avís de descàrrega](#3.3.1)
+   * [3.3. Descàrrega](#3.3)
+   		* [3.3.1 Mode síncron](#3.3.1)
+		* [3.3.1 Mode asíncron](#3.3.2)
 - [4. Annex – exemple de missatges](#4)
 
 # 1. Introducció <a name="1"></a>
@@ -57,7 +58,7 @@ A continuació es detalla el diagrama de seqüència de la operació:
 El Consorci AOC, a través de la plataforma de col·laboració interadministrativa ( a partir d’ara PCI ) publica per al requeridor un frontal únic de missatgeria, que actua com orquestador de les diferents missatgeries o frontals entre Requeridor <-> DCOC <-> Emissor.
 
 
-# 2. Servei publicat per DCOC (AOC) : [Avis de descàrrega] (./WSDL/avisDescarrega.wsdl) <a name="2"></a>
+# 2. Servei publicat per DCOC (AOC) : [Avis de descàrrega] (https://github.com/ConsorciAOC/VO-DCOC-Emissors/blob/main/WSDL/avisDescarrega.wsdl) <a name="2"></a>
 
 El DCOC publica un servei per a que el col·legi pugui informar de la finalització del procés de copia dels arxius de la DMZ cap al repositori amb visibilitat. Aquest servei reb un missatge de tipus peticioAvisDescarrega amb les dades enviades pel col·legi.
 
@@ -68,9 +69,9 @@ Aquest servei està accessible a traves de les següents URLs:
 	*  `https://serveis3-pre.iop.aoc.cat/CAOC-PCI30-MC-DCOC/AvisDescarrega`
 
 
-# 3. Missatgeria dels serveis a implementar pel col·legi : [Col·legi de referència] (./WSDL/referencia.wsdl) <a name="3"></a>
+# 3. Missatgeria dels serveis a implementar pel col·legi : [Col·legi de referència] (https://github.com/ConsorciAOC/VO-DCOC-Emissors/blob/main/WSDL/referencia.wsdl) <a name="3"></a>
 
-En aquesta secció del document s’analitzen els serveis que interactuen entre un col·legi professional i el DCOC. Cal implementar 3 operacions (consulta, descàrrega i consulta de dades tècniques). Es pot descarregar el contracte (WSDL) que han de complir es troba al següent [enllaç](./XSD/referencia.wsdl)
+En aquesta secció del document s’analitzen els serveis que interactuen entre un col·legi professional i el DCOC. Cal implementar 3 operacions (consulta, descàrrega i consulta de dades tècniques). Es pot descarregar el contracte (WSDL) que han de complir es troba al següent [enllaç](https://github.com/ConsorciAOC/VO-DCOC-Emissors/blob/main/WSDL/referencia.wsdl)
 
 En totes les operacions el missatge de petició serà el mateix:
 
@@ -139,7 +140,7 @@ Operació _síncrona_ que posarà a disposició dels requeridors -en format XML-
 
 ## 3.3 Descàrrega <a name="3.3"></a>
 
-Aquesta oepració posarà a disposició dels requeridors tota la documentció relacionada amb l'identificador de projecte sol·licitat. Es tracta d'una operació que es pot implementar de manera _síncrona_ però també _asíncrona_. Aquest segon tipus d'integració s'explicarà a l'apartat [3.3.2](3.3.2.Mode "asíncron"
+Aquesta oepració posarà a disposició dels requeridors tota la documentció relacionada amb l'identificador de projecte sol·licitat. Es tracta d'una operació que es pot implementar de manera _síncrona_ però també _asíncrona_. Aquest segon tipus d'integració s'explicarà a l'apartat [3.3.2](#3.3.2)
 
 ![Resposta descàrrega](./img/respostaDescarrega.PNG "Resposta")
 
@@ -151,7 +152,7 @@ Aquesta oepració posarà a disposició dels requeridors tota la documentció re
 | /respostaDescarrega/peticio | Subelement de tipus petició. Correcpont al bloc de petició que s'ha enviat al col·legi.|
 | /respostaDescarrega/error/codi | Codi d’error. En cas de resposta correcta el valor serà 0.|
 | /respostaDescarrega/error/descripcio | Descripció de l'error.|
-| /respostaDescarrega/projecte | Bloc amb la informació dels documents que formen part del projecte visat.<br/><b>IMPORTANT: si no ve informat aquest bloc, serà necessari enviar la informació via callback al servei d'avis de descàrrega. Més informació al següent [apartat](3.3.2)</b> |
+| /respostaDescarrega/projecte | Bloc amb la informació dels documents que formen part del projecte visat.<br/><b>IMPORTANT: si no ve informat aquest bloc, serà necessari enviar la informació via callback al servei d'avis de descàrrega. Més informació al següent [apartat](#3.3.2)</b> |
 | //projecte/idProjecte | Identificador del projecte. |
 | //projecte/idColegiat | Identificador del col·legiat que ha visat el projecte. |
 | //projecte/codiTipusProjecte | Codi del tipus de projecte. Aquest valor s’informa si l'emissor classifica els projectes visats amb un codi. |
@@ -190,7 +191,7 @@ En aquest mode síncron, la resposta del col·legi amb les dades del projecte vi
 
 ## 3.3.2. Mode "asíncron": facilitar dades de resposta via servei d'avís de descàrrega <a name="3.3.2"></a>
 
-Aquesta opció permet als col·legis indicar al DCOC el moment en el que es troba disponible la documentació a l'SFTP per a poder-la descarregar. Aquesta opció podria ser interessant quan la grandaria dels documents es molt pesada, amb la intenció d'evitar errors quan des del DCOC es vol obtenir els documents.
+Aquesta opció permet als col·legis indicar al DCOC el moment en el que es troba disponible la documentació a l'SFTP per a poder-la descarregar. Aquesta opció podria ser interessant quan la grandària dels documents es molt pesada, amb la intenció d'evitar errors quan des del DCOC es vulguin descarregar documents.
 
 <b>Per a fer efectiva aquesta opció, només serà necessari retornar una resposta de descarrega amb `/respostaDescarrega/error/codi`= 0 i sense el bloc `/respostaDescarrega/projecte`</b>. DCOC deixarà la petició de DCOC en  `stand-by` fins rebre la informació del projecte mitjançant el servei de callback d'AvisDescarrega.
 
@@ -206,7 +207,6 @@ El bloc de projecte, es el mateix de la resposta de descàrrega:
 
 | _Element_ | _Descripció_ |
 | --- | --- |
-
 | /peticioAvisDescarrega/error/codi | Codi d’error. En cas de resposta correcta el valor serà 0. En cas d'error, el codi > 0. |
 | /peticioAvisDescarrega/error/descripcio | Descripció de l'error.|
 | /peticioAvisDescarrega/projecte | Bloc amb la informació dels documents que formen part del projecte visat.<br/><b>IMPORTANT: si no ve informat aquest bloc, serà necessari enviar la informació via callback al servei d'avis de descàrrega. Més informació al següent [apartat](3.3.2)</b> |
@@ -294,7 +294,6 @@ A continuació es mostren alguns exemples:
 En aquest cas el bloc de dades tècniques de CHU (Certificat Habitabilitat Urbanisme)
 
 ```
-
 <?xml version="1.0" encoding="UTF-8"?>
 <respostaDadesTecniques xmlns="http://aoc.cat/dcoc/cocref">
    <peticio>
@@ -504,6 +503,7 @@ En aquest cas el bloc de dades tècniques de CHU (Certificat Habitabilitat Urban
 ## 4.6. Petició Avis descàrrega (amb adjunts de tipus XML)
 
 ```
+<?xml version="1.0" encoding="UTF-8"?>
 <peticioAvisDescarrega xmlns="http://aoc.cat/dcoc/cocref"
                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<idColegi>COAC</idColegi>
@@ -608,8 +608,8 @@ En aquest cas el bloc de dades tècniques de CHU (Certificat Habitabilitat Urban
 ## 4.8. Resposta avis de descàrrega
 
 ```
-<respostaAvisDescarrega xmlns="http://aoc.cat/dcoc/cocref"
-                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="UTF-8"?>
+<respostaAvisDescarrega xmlns="http://aoc.cat/dcoc/cocref" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<error>
 		<codi>0</codi>
 		<descripcio/>
@@ -620,12 +620,12 @@ En aquest cas el bloc de dades tècniques de CHU (Certificat Habitabilitat Urban
 
 ## 4.9. Resposta de cas d'error
 
+A continuació es mostra un exemple de resposta de consulta, tot i que per la resta d'operacions seria pràcticament igual.
+
 ```
 <?xml version="1.0" encoding="UTF-8"?>
-<respostaConsulta xmlns="http://aoc.cat/dcoc/cocref"
-                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<peticio xmlns="http://aoc.cat/dcoc/cocref"
-	         xmlns:xsi="http://www.w3.org/2001/XMLSchema- instance">
+<respostaConsulta xmlns="http://aoc.cat/dcoc/cocref" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<peticio xmlns="http://aoc.cat/dcoc/cocref" xmlns:xsi="http://www.w3.org/2001/XMLSchema- instance">
 		<idProjecte>102752-526</idProjecte>
 		<idColegiat>96292</idColegiat>
 		<dadesRequeridor>
