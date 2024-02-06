@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://www.openuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.openuri.org/">
+	<wsdl:types>
+		<s:schema xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:coc="http://aoc.cat/dcoc/cocref" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://www.openuri.org/">
+			<s:import namespace="http://aoc.cat/dcoc/cocref" schemaLocation= "cocref.xsd"  />
+			<s:element name="avisDescarrega">
+				<s:complexType>
+					<s:sequence>
+						<s:element ref="coc:peticioAvisDescarrega"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="avisDescarregaResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element ref="coc:respostaAvisDescarrega"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+		</s:schema>
+	</wsdl:types>
+	<wsdl:message name="avisDescarregaSoapIn">
+		<wsdl:part name="parameters" element="s0:avisDescarrega"/>
+	</wsdl:message>
+	<wsdl:message name="avisDescarregaSoapOut">
+		<wsdl:part name="parameters" element="s0:avisDescarregaResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="AvisDescarregaSoap">
+		<wsdl:operation name="avisDescarrega">
+			<wsdl:input message="s0:avisDescarregaSoapIn"/>
+			<wsdl:output message="s0:avisDescarregaSoapOut"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="AvisDescarregaSoap" type="s0:AvisDescarregaSoap">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+		<wsdl:operation name="avisDescarrega">
+			<soap:operation soapAction="http://www.openuri.org/avisDescarrega" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="AvisDescarrega">
+		<wsdl:port name="AvisDescarregaSoap" binding="s0:AvisDescarregaSoap">
+			<soap:address location="http://admin.iop.aoc.cat:80/prjModalitatsDCOCWeb/processes/dcoc/serveis/AvisDescarrega.jpd"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
