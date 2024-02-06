@@ -58,7 +58,7 @@ A continuació es detalla el diagrama de seqüència de la operació:
 El Consorci AOC, a través de la plataforma de col·laboració interadministrativa ( a partir d’ara PCI ) publica per al requeridor un frontal únic de missatgeria, que actua com orquestador de les diferents missatgeries o frontals entre Requeridor <-> DCOC <-> Emissor.
 
 
-# 2. Servei publicat per DCOC (AOC) : [Avis de descàrrega] (https://github.com/ConsorciAOC/VO-DCOC-Emissors/blob/main/WSDL/avisDescarrega.wsdl) <a name="2"></a>
+# 2. Servei publicat per DCOC (AOC) : [Avis de descàrrega](https://github.com/ConsorciAOC/VO-DCOC-Emissors/blob/main/WSDL/avisDescarrega.wsdl) <a name="2"></a>
 
 El DCOC publica un servei per a que el col·legi pugui informar de la finalització del procés de copia dels arxius de la DMZ cap al repositori amb visibilitat. Aquest servei reb un missatge de tipus peticioAvisDescarrega amb les dades enviades pel col·legi.
 
@@ -69,7 +69,7 @@ Aquest servei està accessible a traves de les següents URLs:
 	*  `https://serveis3-pre.iop.aoc.cat/CAOC-PCI30-MC-DCOC/AvisDescarrega`
 
 
-# 3. Missatgeria dels serveis a implementar pel col·legi : [Col·legi de referència] (https://github.com/ConsorciAOC/VO-DCOC-Emissors/blob/main/WSDL/referencia.wsdl) <a name="3"></a>
+# 3. Missatgeria dels serveis a implementar pel col·legi : [Col·legi de referència](https://github.com/ConsorciAOC/VO-DCOC-Emissors/blob/main/WSDL/referencia.wsdl) <a name="3"></a>
 
 En aquesta secció del document s’analitzen els serveis que interactuen entre un col·legi professional i el DCOC. Cal implementar 3 operacions (consulta, descàrrega i consulta de dades tècniques). Es pot descarregar el contracte (WSDL) que han de complir es troba al següent [enllaç](https://github.com/ConsorciAOC/VO-DCOC-Emissors/blob/main/WSDL/referencia.wsdl)
 
