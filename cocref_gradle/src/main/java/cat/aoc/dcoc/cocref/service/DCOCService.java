@@ -27,7 +27,8 @@ public class DCOCService  implements CocrefSoap {
         // Set id de projecte
         Peticio peticio = new Peticio();
         peticio.setIdProjecte(consulta.getPeticio().getIdProjecte());
-        
+        cat.aoc.dcoc.cocref.Error err = new cat.aoc.dcoc.cocref.Error();
+        err.setCodi("0");
         // Set estat visat --> VISAT TELEMATICAMETN
         ProjecteConsulta prjConsulta = new ProjecteConsulta();
         prjConsulta.setEstatVisat("VISAT TELEMATICAMENT");        
@@ -36,6 +37,7 @@ public class DCOCService  implements CocrefSoap {
         RespostaConsulta rc = new RespostaConsulta();
         rc.setProjecte(prjConsulta);
         rc.setPeticio(peticio);
+        rc.setError(err);
         
         // Retornem la resposta
         ConsultaResponse cr = new ConsultaResponse();
