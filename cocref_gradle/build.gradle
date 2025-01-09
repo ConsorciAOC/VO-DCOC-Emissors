@@ -25,7 +25,7 @@ wsdl2java {
 
 
 dependencies {
-	implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.5'
+	implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.5' // Necessaria per a evitar problemes de runtime entre les versions
 	implementation 'org.springframework.boot:spring-boot-starter-web-services:3.1.2'		
 	implementation 'org.apache.cxf:cxf-spring-boot-starter-jaxws:4.0.3'
 	implementation 'org.apache.cxf:cxf-rt-features-metrics:4.0.3'
