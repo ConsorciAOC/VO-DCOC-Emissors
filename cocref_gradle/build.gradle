@@ -48,12 +48,8 @@ tasks.named('test') {
 }
 
 
-jar {
-	  manifest {
-   		 attributes(
-			"Implementation-Title": project.name,
-            "Implementation-Version": version )
-  		}
+bootJar {
+	duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 	dependsOn ("wsdl2java")	
 	archiveFileName.set('cocref.jar')
 }
