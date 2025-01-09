@@ -15,6 +15,7 @@ Podreu trobar els WSDL's del serveis a implementar en aquest repositori sota el 
    		* [3.3.1 Mode síncron](#3.3.1)
 		* [3.3.1 Mode asíncron](#3.3.2)
 - [4. Annex – exemple de missatges](#4)
+- [5. Implementació de referència (Java 21 + Springboot)](https://github.com/ConsorciAOC/VO-DCOC-Emissors/tree/main/cocref_gradle )
 
 # 1. Introducció <a name="1"></a>
 
