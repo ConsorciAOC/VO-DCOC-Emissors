@@ -1,0 +1,59 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.1'
+	id 'io.spring.dependency-management' version '1.1.7'
+	id 'com.github.bjornvester.wsdl2java' version "2.0.2"
+}
+
+group = 'cat.aoc.dcoc'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+wsdl2java {    
+	cxfVersion.set("4.0.2")
+	generatedSourceDir.set(layout.projectDirectory.dir("src/generated/java"))
+}
+
+
+dependencies {
+	implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.5'
+	implementation 'org.springframework.boot:spring-boot-starter-web-services:3.1.2'		
+	implementation 'org.apache.cxf:cxf-spring-boot-starter-jaxws:4.0.3'
+	implementation 'org.apache.cxf:cxf-rt-features-metrics:4.0.3'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    implementation 'com.sun.xml.ws:jaxws-ri:4.0.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+
+jar {
+	  manifest {
+   		 attributes(
+			"Implementation-Title": project.name,
+            "Implementation-Version": version )
+  		}
+	dependsOn ("wsdl2java")	
+	archiveFileName.set('cocref.jar')
+}

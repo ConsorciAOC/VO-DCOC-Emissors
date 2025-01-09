@@ -1,0 +1,9 @@
+
+/cocref/conf_var
+/cocref/.mvn
+/cocref
+/cocref_gradle2
+cocref_gradle/src/generated/java/org/openuri/package-info.java
+/cocref_gradle/src/generated
+cocref_gradle/.gitattributes
+/cocref_gradle/conf_var

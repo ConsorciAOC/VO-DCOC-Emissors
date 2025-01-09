@@ -1,0 +1,232 @@
+<xs:schema targetNamespace="http://aoc.cat/dcoc/cocref"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://aoc.cat/dcoc/cocref">
+	<xs:complexType name="projecteConsulta">
+		<xs:annotation>
+			<xs:documentation>Projecte</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="codiTipusProjecte"
+			            type="xs:string"
+			            minOccurs="0"/>
+			<xs:element name="tipusProjecte"
+			            type="xs:string"
+			            minOccurs="0"/>
+			<xs:element name="estatVisat"
+			            type="xs:string"/>
+			<xs:element name="estatCertificat"
+			            type="EstatCertificatType"
+			            minOccurs="0"/>
+			<xs:element name="tamany"
+			            type="xs:int"
+			            minOccurs="0"/>
+			<xs:element name="dadesEspecifiques"
+			            type="xs:anyType"
+			            minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="EstatCertificatType">
+		<xs:restriction base="xs:string">
+        </xs:restriction>
+	</xs:simpleType>
+	<xs:element name="error">
+		<xs:annotation>
+			<xs:documentation>Error</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="codi"
+				            type="xs:string"/>
+				<xs:element name="descripcio"
+				            type="xs:string"
+				            minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="actuacions">
+		<xs:annotation>
+			<xs:documentation>Resposta</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="actuacio"
+			            type="xs:string"
+			            maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="peticio">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="idProjecte"
+				            type="xs:string"/>
+				<xs:element name="idColegiat"
+				            type="xs:string"
+				            minOccurs="0"/>
+				<xs:element name="usuari"
+				            type="xs:string"
+				            minOccurs="0"/>
+				<xs:element name="contrasenya"
+				            type="xs:string"
+				            minOccurs="0"/>
+				<xs:element name="dadesRequeridor"
+				            type="Requeridor"
+				            minOccurs="0"/>
+				<xs:element name="dadesEspecifiques"
+				            type="xs:anyType"
+				            minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="Organisme">
+		<xs:sequence>
+			<xs:element name="ine10"
+			            type="xs:string"/>
+			<xs:element name="descripcio"
+			            type="xs:string"
+			            minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Requeridor">
+		<xs:sequence>
+			<xs:element name="nom"
+			            type="xs:string"
+			            minOccurs="0"/>
+			<xs:element name="nif"
+			            type="xs:string"
+			            minOccurs="0"/>
+			<xs:element name="finalitat"
+			            type="xs:string"/>
+			<xs:element name="expedient"
+			            type="xs:string"/>
+			<xs:element name="organisme"
+			            type="Organisme"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="arxiu">
+		<xs:annotation>
+			<xs:documentation>Document</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="idArxiu"
+			            type="xs:string"
+			            minOccurs="0"/>
+			<xs:element name="descripcio"
+			            type="xs:string"
+			            minOccurs="0"/>
+			<xs:element name="tamany"
+			            type="xs:string"
+			            minOccurs="0"/>
+			<xs:element name="contentType"
+			            type="xs:string"
+			            minOccurs="0"/>
+			<xs:choice>
+				<xs:element name="url"
+				            type="xs:string"
+				            minOccurs="0"/>
+				<xs:element name="contingut"
+				            type="xs:string"
+				            minOccurs="0"/>
+			</xs:choice>
+			<xs:element name="signaturaColegi"
+			            type="arxiu"
+			            minOccurs="0"/>
+			<xs:element name="signaturaProfessional"
+			            type="arxiu"
+			            minOccurs="0"
+			            maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="arxius">
+		<xs:sequence>
+			<xs:element name="arxiu"
+			            type="arxiu"
+			            minOccurs="0"
+			            maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="respostaConsulta">
+		<xs:annotation>
+			<xs:documentation>Resposta de la consulta</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="peticio"/>
+				<xs:element name="projecte"
+				            type="projecteConsulta"
+				            minOccurs="0"/>
+				<xs:element ref="error"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="respostaDescarrega">
+		<xs:annotation>
+			<xs:documentation>Resposta de descarerga del colÂ·legi</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="peticio"/>
+				<xs:element name="projecte"
+				            type="projecteDescarrega"
+				            minOccurs="0"/>
+				<xs:element ref="error"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="respostaDadesTecniques">
+		<xs:annotation>
+			<xs:documentation>Resposta amb les dades tÃ¨cniqeus del projecte</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="peticio"/>
+				<xs:element name="dadesTecniques"
+				            type="xs:anyType"
+				            minOccurs="0"/>
+				<xs:element ref="error"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="projecteDescarrega">
+		<xs:annotation>
+			<xs:documentation>Projecte</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="idProjecte"
+			            type="xs:string"/>
+			<xs:element name="idColegiat"
+			            type="xs:string"
+			            minOccurs="0"/>
+			<xs:element name="codiTipusProjecte"
+			            type="xs:string"
+			            minOccurs="0"/>
+			<xs:element name="tipusProjecte"
+			            type="xs:string"
+			            minOccurs="0"/>
+			<xs:element name="arxius"
+			            type="arxius"
+			            minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="peticioAvisDescarrega">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="idColegi"
+				            type="xs:string"/>
+				<xs:element name="ine10"
+				            type="xs:string"/>
+				<xs:element name="projecte"
+				            type="projecteDescarrega"
+				            minOccurs="0"/>
+				<xs:element ref="error"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="respostaAvisDescarrega">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="error"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
